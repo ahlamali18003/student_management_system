@@ -1,59 +1,29 @@
-
 # Student Management System
 
-## Project Description
+A Python student-record management project with a Tkinter desktop interface and a browser dashboard for GitHub Pages.
 
-The Student Management System is a Python
-application designed to manage student
-information and academic records.
+## Why the GitHub Pages site did not match the desktop screenshot
+
+The desktop application in `dashboard.py` uses Tkinter, which runs as a native Python desktop program. GitHub Pages serves static web files; it does not execute Python/Tkinter or display the desktop window. With no root `index.html`, Pages displayed this README instead of the dashboard. The new `index.html` provides a browser-based dashboard styled to match the desktop app and reads the initial demo records from `data/students.json`.
+
+The web version supports viewing, searching, registering, editing, and deleting student records. Browser changes are stored in that browser's local storage; they do not update `data/students.json` in GitHub. To change the shared initial data, edit the JSON file and commit the change.
+
+## Run the desktop application
+
+1. Install Python and open the project folder in a terminal.
+2. Run `python main.py` (or `python login.py`).
+3. Demo administrator credentials: username `admin`, password `admin123`.
 
 ## Features
 
-1. Register students
-2. View registered students
-3. Search students
-4. Delete student records
-5. View available courses
-6. Calculate grades
-7. Display student statistics
-8. Display unique courses
+- Register, view, search, update, and delete student records
+- View available courses and calculate grades
+- Display student statistics and unique courses
 
-## Python Concepts Used
+## Python concepts
 
-- Variables
-- Input and output
-- If statements
-- Loops
-- Operators
-- Lists
-- Dictionaries
-- Sets
-- Functions
-- Modules
-- File handling
-- JSON
-
-## How to Run
-
-1. Install Python.
-2. Open the project folder in VS Code.
-3. Open the terminal.
-4. Run the application launcher:
-
-   python main.py
-
-5. Enter the administrator credentials:
-
-   - Username: `admin`
-   - Password: `admin123`
-
-GitHub displays and stores the source code but does not execute Python desktop applications in the repository page.
-To run this application, download or clone the repository and run it locally from your computer.
+Variables, input/output, conditionals, loops, operators, lists, dictionaries, sets, functions, modules, file handling, and JSON.
 
 ## Developer
 
-Ahlam Ali
-
-## Institution
-
-Kenya Coast National Polytechnic
+Ahlam Ali — Kenya Coast National Polytechnic

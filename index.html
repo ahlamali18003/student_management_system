@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <title>Student Management System</title>
+  <style>
+    :root{color-scheme:dark;--bg:#111318;--sidebar:#191d25;--card:#202631;--gold:#d4af37;--white:#fff;--muted:#aab0bc;--red:#e45b5b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:16px Arial,sans-serif;min-height:100vh}
+    .app{display:flex;min-height:100vh}.sidebar{width:260px;flex:none;background:var(--sidebar);padding:22px 14px;display:flex;flex-direction:column}
+    .brand{display:flex;align-items:center;gap:12px;min-height:128px;margin-bottom:32px}.logo{width:54px;height:54px;border:4px solid #aab0bc;border-bottom-color:#35b779;border-radius:50%;display:grid;place-items:center;font-size:23px;font-weight:bold;background:#07101b}
+    .brand-name{color:var(--gold);font-size:23px;line-height:1.15;font-weight:bold}.menu-label{color:var(--muted);font-size:13px;font-weight:bold;margin:8px 14px 18px}.nav-button{display:block;width:100%;border:0;background:transparent;color:var(--white);text-align:left;padding:15px 18px;margin:2px 0;border-radius:5px;font:inherit;cursor:pointer}.nav-button:hover,.nav-button.active{background:#252b36}.nav-icon{display:inline-block;width:28px;color:var(--white)}.logout{margin-top:auto;color:var(--red)}
+    main{min-width:0;flex:1;padding:34px 3vw 40px}.header{display:flex;align-items:center;justify-content:space-between;margin:10px 0 62px}.header h1{font-size:36px;margin:0}.header span{color:var(--gold);font-weight:bold}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0 6px 48px}.card{background:var(--card);padding:30px 28px;min-height:156px}.card-title{color:var(--muted);font-weight:bold}.card-value{color:var(--gold);font-size:34px;font-weight:bold;margin-top:24px}.section-title{font-size:25px;margin:0 0 18px}.table-wrap{overflow:auto;border:2px solid #c9c9c9;min-height:300px;background:var(--card)}table{width:100%;border-collapse:collapse;text-align:center}th{color:var(--gold);background:var(--sidebar);padding:12px}td{padding:14px 10px}tbody tr{border-bottom:1px solid #303743}.empty{text-align:center;color:var(--muted);padding:35px}.subsection{margin-top:32px}.chart{height:150px;display:flex;align-items:flex-end;gap:12px;padding:18px 22px;background:var(--card);overflow:auto}.bar-group{min-width:32px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;color:var(--muted);font-size:11px}.bar{width:22px;min-height:2px;background:var(--gold);border-radius:3px 3px 0 0}.toolbar{display:flex;gap:10px;margin-bottom:18px}.toolbar input{flex:1}.field,input,select{background:var(--card);border:1px solid #394150;color:var(--white);padding:12px;border-radius:4px;font:inherit}.button{border:0;background:var(--gold);color:var(--bg);font-weight:bold;padding:11px 16px;border-radius:4px;cursor:pointer}.button.secondary{background:#343b49;color:var(--white)}.row-actions{display:flex;justify-content:center;gap:8px}.form-card{max-width:560px;background:var(--card);padding:28px}.form-card label{display:block;margin:14px 0 6px;color:var(--muted)}.form-card input,.form-card select{width:100%}.form-actions{display:flex;gap:10px;margin-top:20px}.notice{color:var(--muted);font-size:13px;margin-top:14px}.hidden{display:none!important}
+    @media(max-width:850px){.sidebar{width:210px}.cards{grid-template-columns:1fr;gap:12px;margin-bottom:30px}.card{min-height:120px;padding:22px}.card-value{margin-top:12px}.header{margin-bottom:35px}}
+    @media(max-width:600px){.app{display:block}.sidebar{width:auto;padding:10px;display:block}.brand{min-height:60px;margin:0 8px 8px}.brand-name{font-size:18px}.menu-label{display:none}.nav-button{display:inline-block;width:auto;padding:10px}.logout{float:right}main{padding:18px}.header{margin:12px 0 28px;align-items:flex-start;gap:10px}.header h1{font-size:28px}.header span{font-size:12px;text-align:right}.cards{margin:0 0 30px}.toolbar{flex-wrap:wrap}.toolbar input{flex-basis:100%}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">CS</div><div class="brand-name">STUDENT<br>MANAGEMENT</div></div>
+      <div class="menu-label">MAIN MENU</div>
+      <button class="nav-button active" data-page="dashboard"><span class="nav-icon">▪</span>Dashboard</button>
+      <button class="nav-button" data-page="register"><span class="nav-icon">＋</span>Register Student</button>
+      <button class="nav-button" data-page="records"><span class="nav-icon">▤</span>Student Records</button>
+      <button class="nav-button logout" id="reset-button"><span class="nav-icon">↪</span>Reset Demo Data</button>
+    </aside>
+    <main>
+      <header class="header"><h1 id="page-title">Dashboard</h1><span>STUDENT ADMINISTRATION</span></header>
+      <section id="dashboard-page">
+        <div class="cards">
+          <article class="card"><div class="card-title">TOTAL STUDENTS</div><div class="card-value" id="total-count">0</div></article>
+          <article class="card"><div class="card-title">AVAILABLE COURSES</div><div class="card-value" id="course-count">0</div></article>
+          <article class="card"><div class="card-title">AVERAGE MARKS</div><div class="card-value" id="average-mark">0.0%</div></article>
+        </div>
+        <h2 class="section-title">RECENT STUDENTS</h2>
+        <div class="table-wrap"><table><thead><tr><th>Admission</th><th>Name</th><th>Course</th><th>Mark</th><th>Grade</th></tr></thead><tbody id="recent-body"></tbody></table></div>
+        <section class="subsection"><h2 class="section-title">STUDENT PERFORMANCE</h2><div class="chart" id="chart"></div></section>
+      </section>
+      <section id="records-page" class="hidden">
+        <div class="toolbar"><input id="search" type="search" placeholder="Search by student name or admission number" aria-label="Search students"><button class="button" id="add-student">ADD STUDENT</button></div>
+        <div class="table-wrap"><table><thead><tr><th>Admission</th><th>Name</th><th>Course</th><th>Mark</th><th>Grade</th><th>Actions</th></tr></thead><tbody id="records-body"></tbody></table></div>
+      </section>
+      <section id="register-page" class="hidden">
+        <form class="form-card" id="student-form">
+          <h2 id="form-title" class="section-title">REGISTER STUDENT</h2>
+          <label for="student-name">Student Name</label><input id="student-name" required maxlength="100">
+          <label for="admission">Admission Number</label><input id="admission" required maxlength="40">
+          <label for="course">Course</label><select id="course" required></select>
+          <label for="mark">Marks (0 - 100)</label><input id="mark" type="number" min="0" max="100" step="any" required>
+          <div class="form-actions"><button class="button" type="submit">SAVE STUDENT</button><button class="button secondary" type="button" id="cancel-form">CANCEL</button></div>
+          <p class="notice">Changes are saved in this browser on this device. GitHub Pages cannot write back to the repository data file.</p>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script>
+    const COURSES = ["Web Development", "Python Programming", "Database Management", "Networking", "Computer Packages"];
+    const STORAGE_KEY = "student-management-system.students.v1";
+    let students = [];
+    let editingAdmission = null;
+    const byId = id => document.getElementById(id);
+    const grade = mark => Number(mark) >= 80 ? "A" : Number(mark) >= 70 ? "B" : Number(mark) >= 60 ? "C" : Number(mark) >= 50 ? "D" : "F";
+    const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(students)); render(); }
+    function render(){
+      const average = students.length ? students.reduce((sum, student) => sum + Number(student.mark || 0), 0) / students.length : 0;
+      byId("total-count").textContent = students.length;
+      byId("course-count").textContent = new Set(students.map(student => student.course).filter(Boolean)).size;
+      byId("average-mark").textContent = `${average.toFixed(1)}%`;
+      const recent = students.slice(-8).reverse();
+      byId("recent-body").innerHTML = recent.length ? recent.map(student => `<tr><td>${escapeHTML(student.admission)}</td><td>${escapeHTML(student.name)}</td><td>${escapeHTML(student.course)}</td><td>${Number(student.mark).toFixed(1)}</td><td>${grade(student.mark)}</td></tr>`).join("") : '<tr><td class="empty" colspan="5">No students registered yet.</td></tr>';
+      const query = byId("search").value.trim().toLowerCase();
+      const filtered = students.filter(student => `${student.name} ${student.admission}`.toLowerCase().includes(query));
+      byId("records-body").innerHTML = filtered.length ? filtered.map(student => `<tr><td>${escapeHTML(student.admission)}</td><td>${escapeHTML(student.name)}</td><td>${escapeHTML(student.course)}</td><td>${Number(student.mark).toFixed(1)}</td><td>${grade(student.mark)}</td><td><div class="row-actions"><button class="button secondary" data-edit="${escapeHTML(student.admission)}">EDIT</button><button class="button secondary" data-delete="${escapeHTML(student.admission)}">DELETE</button></div></td></tr>`).join("") : '<tr><td class="empty" colspan="6">No matching student records.</td></tr>';
+      byId("chart").innerHTML = students.length ? students.map((student,index) => `<div class="bar-group" title="${escapeHTML(student.name)}: ${Number(student.mark)}%"><div class="bar" style="height:${Math.max(2,Math.min(100,Number(student.mark)||0))}%"></div><span>${index+1}</span></div>`).join("") : '<span class="empty">No student marks available yet</span>';
+    }
+    function showPage(page){
+      ["dashboard","records","register"].forEach(name => byId(`${name}-page`).classList.toggle("hidden",name!==page));
+      byId("page-title").textContent = ({dashboard:"Dashboard",records:"Student Records",register:editingAdmission ? "Edit Student":"Register Student"})[page];
+      document.querySelectorAll(".nav-button[data-page]").forEach(button => button.classList.toggle("active",button.dataset.page===page));
+      if(page==="records") render();
+    }
+    function openForm(admission=null){
+      editingAdmission=admission;
+      const student=students.find(item=>item.admission===admission);
+      byId("form-title").textContent=student?"EDIT STUDENT":"REGISTER STUDENT";
+      byId("student-name").value=student?.name||"";
+      byId("admission").value=student?.admission||"";
+      byId("admission").readOnly=!!student;
+      byId("course").value=student?.course||"";
+      byId("mark").value=student?.mark??"";
+      showPage("register");
+      byId("student-name").focus();
+    }
+    document.querySelectorAll(".nav-button[data-page]").forEach(button=>button.addEventListener("click",()=>showPage(button.dataset.page)));
+    byId("course").innerHTML='<option value="" disabled selected>Select a course</option>'+COURSES.map(course=>`<option>${escapeHTML(course)}</option>`).join("");
+    byId("add-student").addEventListener("click",()=>openForm());
+    byId("cancel-form").addEventListener("click",()=>showPage("records"));
+    byId("search").addEventListener("input",render);
+    byId("records-body").addEventListener("click",event=>{
+      const edit=event.target.closest("[data-edit]"); const remove=event.target.closest("[data-delete]");
+      if(edit) openForm(edit.dataset.edit);
+      if(remove && confirm(`Delete student ${remove.dataset.delete}?`)){students=students.filter(student=>student.admission!==remove.dataset.delete);save();}
+    });
+    byId("student-form").addEventListener("submit",event=>{
+      event.preventDefault();
+      const record={name:byId("student-name").value.trim(),admission:byId("admission").value.trim(),course:byId("course").value,mark:Number(byId("mark").value)};
+      if(!record.name||!record.admission||!record.course||!Number.isFinite(record.mark)||record.mark<0||record.mark>100){alert("Enter a name, admission number, course, and mark between 0 and 100.");return;}
+      if(!editingAdmission && students.some(student=>student.admission===record.admission)){alert("That admission number already exists.");return;}
+      if(editingAdmission){const index=students.findIndex(student=>student.admission===editingAdmission);if(index!==-1)students[index]={...students[index],...record};}
+      else students.push(record);
+      save();showPage("records");
+    });
+    byId("reset-button").addEventListener("click",()=>{if(confirm("Clear this browser's saved changes and reload the repository's demo students?")){localStorage.removeItem(STORAGE_KEY);location.reload();}});
+    async function init(){
+      const saved=localStorage.getItem(STORAGE_KEY);
+      if(saved!==null){try{students=JSON.parse(saved);}catch{localStorage.removeItem(STORAGE_KEY);}}
+      if(saved===null || !Array.isArray(students)){
+        try{const response=await fetch("./data/students.json");if(response.ok){const data=await response.json();if(Array.isArray(data))students=data;}}catch{/* local file preview may not allow fetch; start empty */}
+      }
+      if(!Array.isArray(students))students=[];
+      render();
+    }
+    init();
+  </script>
+</body>
+</html>
