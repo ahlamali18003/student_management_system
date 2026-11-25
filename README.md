@@ -38,9 +38,11 @@ information and academic records.
 1. Install Python.
 2. Open the project folder in VS Code.
 3. Open the terminal.
-4. Run:
+4. Run the application launcher:
 
-   python hello.py
+   python main.py
+
+The files in `modules/` provide functionality for the application; run `main.py` to start the full system.
 
 ## Developer
 

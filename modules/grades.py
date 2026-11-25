@@ -1,31 +1,16 @@
-
-# grades.py
-
 def calculate_grade(mark):
-
     if mark >= 80:
         return "A"
-
     elif mark >= 70:
         return "B"
-
     elif mark >= 60:
         return "C"
-
     elif mark >= 50:
         return "D"
-
-    else:
-        return "F"
+    return "F"
 
 
 def calculate_average(marks):
-
     if len(marks) == 0:
         return 0
-
-    total = sum(marks)
-
-    average = total / len(marks)
-
-    return average
+    return sum(marks) / len(marks)

@@ -1,2 +1,8 @@
-
-[]
+[
+    {
+        "name": "halima",
+        "admission": "57903",
+        "course": "Python Programming",
+        "mark": 95.0
+    }
+]
