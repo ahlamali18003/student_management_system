@@ -42,7 +42,13 @@ information and academic records.
 
    python main.py
 
-The files in `modules/` provide functionality for the application; run `main.py` to start the full system.
+5. Enter the administrator credentials:
+
+   - Username: `admin`
+   - Password: `admin123`
+
+GitHub displays and stores the source code but does not execute Python desktop applications in the repository page.
+To run this application, download or clone the repository and run it locally from your computer.
 
 ## Developer
 
